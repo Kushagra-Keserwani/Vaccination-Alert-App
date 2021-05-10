@@ -71,13 +71,13 @@ https.get(url, function(resp){
        
         const pinData = tryParse(data);
         //console.log(pinData.value);
-        
+        if(pinData.valid){
         pinData.value.sessions.forEach(element => {
             if(element.min_age_limit<=age && element.available_capacity>0){
                 agePinData.push(element);
             }
         });
-    
+        }
         //console.log(agePinData);
         if(agePinData.length==0){
 
