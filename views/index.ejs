@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Availability</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Check Vaccine Availability</h1>
+    <form action="/check" method="post">
+        
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" required="required" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="pincode">Pincode</label>
+              <input type="number" required="required" min="100000" max="999999" name="pincode" class="form-control" id="pincode">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" required="required" min="0" name="age" class="form-control" id="age">
+              </div>
+            <button type="submit" class="btn btn-primary">Check Vaccine Availability</button>
+          
+    </form>
+  </div>
+</body>
+</html>

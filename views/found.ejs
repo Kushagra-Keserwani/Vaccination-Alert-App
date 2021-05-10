@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Found</title>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h4 class="display-4">Vaccine is Available for </h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </p>
+          </div>
+    </div>
+    <div class="container" id="participantTable">         
+        <table class="table table-bordered table-success table-striped table-hover table-responsive-lg border-dark" id="tab">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Block</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Available Capacity</th>
+                  <th scope="col">Vaccine</th>
+              </tr>
+              </thead>
+              <tbody>
+               
+                <% for(let i=0; i < attendanceData.length; ++i) { %>
+                   <tr>
+                  <th scope="row"><%= (i+1) %></th>
+                  <td><%= attendanceData[i].url %></td>
+                  <td><%= attendanceData[i].data.length %></td>
+                  <td><%= moment(attendanceData[i].attendance_date).format("DD/MM/YYYY") %></td>
+                  <td><%= attendanceData[i].attendance_date.toLocaleTimeString('en-US') %></td>
+                  <td><%= attendanceData[i].taker %></td>
+                 <td class="control-col">
+                   <div id="test">
+                   </div>
+                      <button type="submit" data-target="#delete-popup" id="<%= attendanceData[i]._id%>" onclick="deleteYes(this)" class="controls" title="Delete" ><i class="far fa-trash-alt"></i></button></form>
+                     
+                     <button class="controls" data-target="#edit-popup" id="<%=(i)%>" onclick="edit(this);"><i class="fas fa-pen" title="Edit" ></i></button>
+                     <button class="controls" onclick="document.location='/home/<%= attendanceData[i]._id %>/details'"><i class="fab fa-readme" title="Read" ></i></button>
+                 </td>
+              </tr>
+                <%}%>
+          </tbody>
+        </table>
+      </div>
+
+</body>
+</html>
