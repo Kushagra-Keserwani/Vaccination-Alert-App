@@ -11,13 +11,11 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h4 class="display-4">Vaccine is Available for </h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
+            <h4 class="display-4">Vaccine is Available for the pincode <%= center[0].pincode %> at the below centers.</h4>
+        
+            
+            <p>Register yourslf and book your slot on <a href="https://www.cowin.gov.in/home">www.cowin.gov.in</a></p>
+            
           </div>
     </div>
     <div class="container" id="participantTable">         
@@ -28,34 +26,29 @@
                   <th scope="col">Name</th>
                   <th scope="col">Address</th>
                   <th scope="col">Block</th>
-                  <th scope="col">Fee</th>
+                  <th scope="col">Fee ( ₹ )</th>
                   <th scope="col">Available Capacity</th>
                   <th scope="col">Vaccine</th>
               </tr>
               </thead>
               <tbody>
                
-                <% for(let i=0; i < attendanceData.length; ++i) { %>
+                <% for(let i=0; i < center.length; ++i) { %>
                    <tr>
                   <th scope="row"><%= (i+1) %></th>
-                  <td><%= attendanceData[i].url %></td>
-                  <td><%= attendanceData[i].data.length %></td>
-                  <td><%= moment(attendanceData[i].attendance_date).format("DD/MM/YYYY") %></td>
-                  <td><%= attendanceData[i].attendance_date.toLocaleTimeString('en-US') %></td>
-                  <td><%= attendanceData[i].taker %></td>
-                 <td class="control-col">
-                   <div id="test">
-                   </div>
-                      <button type="submit" data-target="#delete-popup" id="<%= attendanceData[i]._id%>" onclick="deleteYes(this)" class="controls" title="Delete" ><i class="far fa-trash-alt"></i></button></form>
-                     
-                     <button class="controls" data-target="#edit-popup" id="<%=(i)%>" onclick="edit(this);"><i class="fas fa-pen" title="Edit" ></i></button>
-                     <button class="controls" onclick="document.location='/home/<%= attendanceData[i]._id %>/details'"><i class="fab fa-readme" title="Read" ></i></button>
-                 </td>
+                  <td><%= center[i].name %></td>
+                  <td><%= center[i].address %></td>
+                  <td><%= center[i].block_name %></td>
+                  <td><%= center[i].fee %></td>
+                  <td><%= center[i].available_capacity %></td>
+                  <td><%= center[i].vaccine %></td>
               </tr>
                 <%}%>
           </tbody>
         </table>
       </div>
+      <div class="container"><a class="btn btn-primary btn-lg" href="/" role="button">Check again</a></div>
+      
 
 </body>
 </html>

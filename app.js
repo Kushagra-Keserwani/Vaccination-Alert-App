@@ -51,7 +51,7 @@ app.get("/", function(req, res){
 });
 
 app.post("/check", function(req,res){
-    console.log(req.body);
+   // console.log(req.body);
 
     const email = req.body.email;
     const pincode = parseInt(req.body.pincode);
@@ -61,7 +61,7 @@ const date = DateLib.getDate();
 
 const url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+ pincode +"&date="+ date;
 https.get(url, function(resp){
-    console.log(resp.statusCode);
+    //console.log(resp.statusCode);
 
     resp.on("data", function(data){
 
@@ -70,7 +70,7 @@ https.get(url, function(resp){
         
        
         const pinData = tryParse(data);
-        console.log(pinData.value);
+        //console.log(pinData.value);
         
         pinData.value.sessions.forEach(element => {
             if(element.min_age_limit<=age && element.available_capacity>0){
@@ -78,18 +78,20 @@ https.get(url, function(resp){
             }
         });
     
-        console.log(agePinData);
+        //console.log(agePinData);
         if(agePinData.length==0){
 
             const user = new User({Email: email, Pincode: pincode, Age: age});
             user.save();
-            res.send("No Vaccination center is available for booking for your age. We will send you an email as soon as it is available");
+           // res.render("found", {center: agePinData});
+           res.render("notFound", {pin: pincode});
            
         }
         else{
             // const user = new User({Email: email, Pincode: pincode, Age: age});
             // user.save();
-            res.send("<h1>Appointment for vaccination is available for this pincode</h1><p>"+ JSON.stringify(agePinData) +"</p>");
+            res.render("found", {center: agePinData});
+            //res.send("<h1>Appointment for vaccination is available for this pincode</h1><p>"+ JSON.stringify(agePinData) +"</p>");
         }
     })
 
@@ -112,7 +114,7 @@ setInterval( () => {
     const pincode = user.Pincode;
     const age = user.Age;
 
-    console.log(email+" "+ pincode + " "+ age +" ");
+    //console.log(email+" "+ pincode + " "+ age +" ");
 
     const date = DateLib.getDate();        
 
@@ -123,7 +125,7 @@ https.get(url, function(resp){
     resp.on("data", function(data){
         const pinData = tryParse(data);
         //console.log("Pin Data = ");
-        console.log(pinData.value);
+        //console.log(pinData.value);
         if(pinData.valid){
         pinData.value.sessions.forEach( element => {
             if(element.min_age_limit <= age && element.available_capacity>0){
@@ -134,27 +136,28 @@ https.get(url, function(resp){
 
         
     //console.log("Age Pin Data = ");
-        console.log(agePinData);
+      //  console.log(agePinData);
         if(agePinData.length>0){
             if(!mailList.includes(email)){
             mailList.push(email);
-            console.log(mailList);
+            //console.log(mailList);
             mailOptions.to=email;
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
                   console.log(error);
                 } else {
-                  console.log('Email sent: ' + info.response);
+                  //console.log('Email sent: ' + info.response);
                  const filter ={
                     Email: email
                 }
-                console.log(filter);
+                //console.log(filter);
                 userLib.deleteOne(filter, function (err) {
                     if(err){
                         return console.log(err);
-                    }else{
-                        console.log("Deleted  " + email);
                     }
+                    // else{
+                    // console.log("Deleted  " + email);
+                    // }
                 });
                 }
               });
@@ -211,6 +214,6 @@ https.get(url, function(resp){
 
 
 
-app.listen(2000, function(){
+app.listen(process.env.PORT || 2000, function(){
     console.log("Server is running on port 2000");
 })
