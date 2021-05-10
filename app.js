@@ -42,6 +42,10 @@ mongoose.connect(MONGO_URL, {
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false
+  }).then( () => {
+    console.log("Database connected");
+  }).catch( () => {
+    console.log("Database Not connected");
   });
 
 app.set('view engine','ejs');
@@ -81,10 +85,18 @@ https.get(url, function(resp){
         //console.log(agePinData);
         if(agePinData.length==0){
 
-            const user = new User({Email: email, Pincode: pincode, Age: age});
-            user.save();
-           // res.render("found", {center: agePinData});
-           res.render("notFound", {pin: pincode});
+            const user = {Email: email, Pincode: pincode, Age: age};
+            userLib.save(user, function(err){
+                if(err){
+                    
+                    return  res.json(err);;
+                }
+                else{
+                    return res.render("notFound", {pin: pincode});
+                }
+            });
+           
+           
            
         }
         else{
@@ -215,5 +227,5 @@ https.get(url, function(resp){
 
 
 app.listen(process.env.PORT || 2000, function(){
-    console.log("Server is running on port 2000");
+    console.log("Server is running on port ", process.env.PORT || 2000);
 })
