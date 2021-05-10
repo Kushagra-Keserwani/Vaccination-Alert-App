@@ -66,7 +66,10 @@ const date = DateLib.getDate();
 const url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+ pincode +"&date="+ date;
 https.get(url, function(resp){
     //console.log(resp.statusCode);
-
+    resp.on("error", function(error){
+        console.log(error);
+        res.send(error);
+    });
     resp.on("data", function(data){
 
         const agePinData =  [];
