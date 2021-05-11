@@ -10,7 +10,10 @@ Current version is live at https://vaccine-alert-check.herokuapp.com/
 
 npm install 
 
+## To Start
+
+npm start 
+
 ## Running Locally
 
-npm start <br />
 Local version is available at http://localhost:2000/
