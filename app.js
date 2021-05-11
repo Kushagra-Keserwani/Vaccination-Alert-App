@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const  User      = require("./models/user");
 const userLib    = require('./lib/userlib.js');
 const mongoose = require('mongoose');
+const axios = require('axios');
 const DateLib               = require('./date.js');
 const nodemailer = require('nodemailer');
 const app=express();
@@ -64,6 +65,60 @@ app.post("/check", function(req,res){
 const date = DateLib.getDate();
 
 const url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+ pincode +"&date="+ date;
+
+
+
+// axios.get(url)
+//   .then(resp => {
+//     resp.on("data", function(data){
+
+//         const agePinData =  [];
+        
+        
+       
+//         const pinData = tryParse(data);
+//         //console.log(pinData.value);
+//         if(pinData.valid){
+//         pinData.value.sessions.forEach(element => {
+//             if(element.min_age_limit<=age && element.available_capacity>0){
+//                 agePinData.push(element);
+//             }
+//         });
+//         }
+//         //console.log(agePinData);
+//         if(agePinData.length==0){
+
+//             const user = {Email: email, Pincode: pincode, Age: age};
+//             userLib.save(user, function(err){
+//                 if(err){
+                    
+//                     return  res.json(err);;
+//                 }
+//                 else{
+//                     return res.render("notFound", {pin: pincode});
+//                 }
+//             });
+           
+           
+           
+//         }
+//         else{
+//             // const user = new User({Email: email, Pincode: pincode, Age: age});
+//             // user.save();
+//             res.render("found", {center: agePinData});
+//             //res.send("<h1>Appointment for vaccination is available for this pincode</h1><p>"+ JSON.stringify(agePinData) +"</p>");
+//         }
+//     })
+
+
+
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
+
+
+
 https.get(url, function(resp){
     //console.log(resp.statusCode);
     resp.on("error", function(error){
@@ -120,7 +175,7 @@ setInterval( () => {
     User.find({} , (err, users) => {
         if(err) {
             console.log(err);
-        }
+        }else{
 
         users.map( user => {
             
@@ -161,7 +216,7 @@ https.get(url, function(resp){
                 if (error) {
                   console.log(error);
                 } else {
-                  //console.log('Email sent: ' + info.response);
+                  console.log('Email sent: ' + info.response);
                  const filter ={
                     Email: email
                 }
@@ -189,6 +244,7 @@ https.get(url, function(resp){
 
 
         })
+    }
     });
     // console.log("Mail List = ");
     // console.log(mailList);
@@ -225,6 +281,7 @@ https.get(url, function(resp){
     // }else{
     //     console.log("No one is there in the mailing List");
     // }
+    
 }, 1200000);
 
 
