@@ -1,5 +1,6 @@
 # Vaccination-Alert-App
 
+You can check vaccine slot availability at your desired pincode. And if its not available don't worry we will send you an email as soon as a slot is available at your selected pincode.
 
 ## Running
 
